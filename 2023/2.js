@@ -1,6 +1,6 @@
-const gameRE=/^Game (\d+): (.+)$/gm;
-const roundRE=/(\d+) (\w+)/g;
-function partA(data,limits){
+const gameRE=/^Game (\d+): (.+)$/gm;// split game into ID and DATA
+const roundRE=/(\d+) (\w+)/g;// split DATA round into VALUE KEY pair
+function part2A(data,limits){
 	let sum=0;
 	session:for(const[,id,session] of data.matchAll(gameRE)){// split data into a list of ID and Session pairs
 		const counts=Object.create(null);// start an empty record for each session
@@ -17,7 +17,7 @@ function partA(data,limits){
 	}
 	return sum;
 }
-function partB(data){
+function part2B(data){
 	let sum=0;
 	for(const[,id,session] of data.matchAll(gameRE)){// split data into a list of ID and Session pairs
 		const counts=Object.create(null);// start an empty record for each session
@@ -34,19 +34,19 @@ function partB(data){
 	return sum;
 }
 
-const testData=`Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+const testData2=`Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
 Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green`;
-async function solve(){
-	console.assert(partA(testData,{red:3,green:5,blue:4})===2);
-	console.assert(partB(testData)===2286);
+async function solve2(){
+	console.assert(part2A(testData2,{red:3,green:5,blue:4})===2);
+	console.assert(part2B(testData2)===2286);
 	const data=await(await fetch("https://adventofcode.com/2023/day/2/input")).text();
 	//const data=document.body.innerText;
 	console.time("color game");
-	console.log("partA",partA(data,{red:12,green:13,blue:14}));
-	console.log("partB",partB(data));
+	console.log("partA",part2A(data,{red:12,green:13,blue:14}));
+	console.log("partB",part2B(data));
 	console.timeEnd("color game");
 }
-await solve();
+await solve2();
