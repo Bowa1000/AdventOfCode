@@ -32,12 +32,12 @@ def partA(data:list[str])->int:
 # not working, trying to debug
 def partB(data:list[str])->int:
 	acc=0
-	def index(x:int,y:int,used:set[tuple(int,int,int)]):
+	def index(x:int,y:int,used:set[tuple[int,int,int]]):
 		if not data[y][x-1].isnumeric():return
 		while data[y][x-1].isnumeric():x-=1
 		x_=x
 		while data[y][x_].isnumeric():x_+=1
-		used.append((x,y,int(data[y][x:x_])))
+		used.add((x,y,int(data[y][x:x_])))
 	for y,line in enumerate(data):
 		used=set()
 		for m in patternB.finditer(line):
@@ -68,8 +68,11 @@ if __name__=="__main__":
 			".664.598..",
 		]
 		import time
-		assert partA(testData)==4361
-		assert partB(testData)==467835
+		a=partA(testData)
+		b=partB(testData)
+		print(a,b)
+		assert a==4361
+		assert b==467835
 		with open("3.input") as file:
 			lines=file.readlines()
 			start_time=time.time()
